@@ -1,13 +1,20 @@
 /* 
-  Copyright 2018. Jefferson "jscher2000" Scher. License: MPL-2.0.
-  version 0.1 - initial concept
+
+  Based on Original Extension from Jefferson "jscher2000" Scher.
+  Modified the outlook URL from live.com to office.com for outlook web in enterprise environment to work with single sing in.
+  Modified By: Kaveen Perera, Northumbria University Newcastle, UK. 
+  Date: 03/04/2019
+  
+  Original Author's notes:
+	Copyright 2018. Jefferson "jscher2000" Scher. License: MPL-2.0.
+	version 0.1 - initial concept
+	version 0.2 - open new tab next to current page
+  
+  
+  
 */
-
-// this URL launches the Inbox first, then a message on the side, very slow:
-// const baseUrl = 'http://outlook.live.com/default.aspx?rru=compose&';
-
 // This URL creates a stand-alone tab that gets "stranded" but it's faster:
-const baseUrl = 'https://outlook.live.com/mail/deeplink/compose?';
+const baseUrl = 'https://outlook.office.com/mail/deeplink/compose?';
 
 /**** Context menu item ****/
 
@@ -82,6 +89,7 @@ browser.menus.onClicked.addListener((menuInfo, currTab) => {
 	if (OWAUrl.length > 0){
 		browser.tabs.create({
 			url: OWAUrl,
+			index: currTab.index + 1,
 			active: true
 		}).then((newTab) => {
 			/* No action */;
